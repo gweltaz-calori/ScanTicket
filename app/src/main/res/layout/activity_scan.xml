@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@drawable/fake_scan"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<ImageButton
+        android:id="@+id/imageView"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@null"
+        app:srcCompat="@drawable/scan_button" />-->
+
+
+    <!--<RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp">
+
+        <ImageView
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:src="@drawable/middle_bar"
+            android:layout_centerInParent="true" />
+        <ImageView
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:src="@drawable/top_bar"
+            android:layout_centerInParent="true" />
+
+        <ImageView
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:src="@drawable/inside"
+            android:layout_centerInParent="true" />
+
+        <ImageView
+            android:layout_height="60dp"
+            android:layout_width="60dp"
+            android:src="@drawable/out"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>-->
+
+
+
+
+    <ImageButton
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="26dp"
+        android:layout_marginTop="15dp"
+        android:background="@null"
+        app:srcCompat="@drawable/help_button" />
+
+    <view
+        class="com.example.gweltaz.scanticket.view.ScanButton"
+        id="@+id/view"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="0dp" />
+</RelativeLayout>
