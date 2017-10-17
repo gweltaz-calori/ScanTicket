@@ -33,27 +33,6 @@ public class ScanButtonStyleKit {
     // Canvas Drawings
     // Tab
 
-    private static class CacheForCanvas1 {
-        private static RectF originalFrame = new RectF(0f, 0f, 240f, 120f);
-        private static RectF resizedFrame = new RectF();
-    }
-
-    public static void drawCanvas1(Canvas canvas) {
-        ScanButtonStyleKit.drawCanvas1(canvas, new RectF(0f, 0f, 240f, 120f), ResizingBehavior.AspectFit);
-    }
-
-    public static void drawCanvas1(Canvas canvas, RectF targetFrame, ResizingBehavior resizing) {
-        // Resize to Target Frame
-        canvas.save();
-        RectF resizedFrame = CacheForCanvas1.resizedFrame;
-        ScanButtonStyleKit.resizingBehaviorApply(resizing, CacheForCanvas1.originalFrame, targetFrame, resizedFrame);
-        canvas.translate(resizedFrame.left, resizedFrame.top);
-        canvas.scale(resizedFrame.width() / 240f, resizedFrame.height() / 120f);
-
-        // Empty.
-
-        canvas.restore();
-    }
 
     private static class CacheForButton {
         private static Paint paint = new Paint();
