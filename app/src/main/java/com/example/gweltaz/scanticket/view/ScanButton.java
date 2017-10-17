@@ -1,15 +1,19 @@
 package com.example.gweltaz.scanticket.view;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 
-import com.example.gweltaz.scanticket.stylekit.ShotButtonStyleKit;
+import com.example.gweltaz.scanticket.stylekit.ScanButtonStyleKit;
 
 
 /**
@@ -18,34 +22,120 @@ import com.example.gweltaz.scanticket.stylekit.ShotButtonStyleKit;
 
 public class ScanButton extends View {
 
-
-
     private int arcRotation = 0;
+    private float centerScale = 0.2f;
 
     public ScanButton(Context context) {
         super(context);
+        createAnimation();
     }
 
     public ScanButton(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        createAnimation();
     }
 
     public ScanButton(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        createAnimation();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        ShotButtonStyleKit.drawShotButton(canvas,new RectF(0,0,getWidth(),getHeight()),ShotButtonStyleKit.ResizingBehavior.AspectFit,arcRotation);
+        ScanButtonStyleKit.drawButton(canvas,new RectF(0,0,getWidth(),getHeight()), ScanButtonStyleKit.ResizingBehavior.AspectFit,arcRotation,centerScale);
 
-        arcRotation+= 10;
+    }
 
-        if(arcRotation > 360) {
-            arcRotation = 0;
-        }
+    private void createAnimation() {
 
-        invalidate();
+        createArcAnimation();
+        createCircleAnimation();
+
+    }
+
+    private void createArcAnimation() {
+        ValueAnimator arcAnimation = ValueAnimator.ofInt(0, -360);
+        arcAnimation.setDuration(1000);
+        arcAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            public void onAnimationUpdate(ValueAnimator animation) {
+                Integer value = (Integer) animation.getAnimatedValue();
+                arcRotation = value.intValue();
+                invalidate();
+            }
+        });
+        arcAnimation.setRepeatCount(ValueAnimator.INFINITE);
+        arcAnimation.setRepeatMode(ValueAnimator.RESTART);
+        arcAnimation.setInterpolator(new LinearInterpolator());
+        arcAnimation.start();
+
+    }
+
+    private void createCircleAnimation() {
+
+        ValueAnimator moveBeginningAnimation = ValueAnimator.ofFloat(0.2f, 0.8f);
+        moveBeginningAnimation.setDuration(600);
+        moveBeginningAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            public void onAnimationUpdate(ValueAnimator animation) {
+                Float value = (Float) animation.getAnimatedValue();
+                centerScale = value.floatValue();
+                invalidate();
+            }
+        });
+        /*moveBeginningAnimation.setRepeatCount(ValueAnimator.INFINITE);
+        moveBeginningAnimation.setRepeatMode(ValueAnimator.RESTART);*/
+
+        ValueAnimator moveMiddleAnimation = ValueAnimator.ofFloat(0.8f, 1.2f);
+        moveMiddleAnimation.setDuration(600);
+        moveMiddleAnimation.setStartDelay(200);
+        moveMiddleAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            public void onAnimationUpdate(ValueAnimator animation) {
+                Float value = (Float) animation.getAnimatedValue();
+                centerScale = value.floatValue();
+                invalidate();
+            }
+        });
+        /*moveMiddleAnimation.setRepeatCount(ValueAnimator.INFINITE);
+        moveMiddleAnimation.setRepeatMode(ValueAnimator.RESTART);*/
+
+
+        ValueAnimator moveMaxAnimation = ValueAnimator.ofFloat(1.2f, 2.6f);
+        moveMaxAnimation.setDuration(600);
+        moveMaxAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            public void onAnimationUpdate(ValueAnimator animation) {
+                Float value = (Float) animation.getAnimatedValue();
+                centerScale = value.floatValue();
+                invalidate();
+            }
+        });
+
+
+        ValueAnimator moveBackAnimation = ValueAnimator.ofFloat(2.6f,0.2f);
+        moveBackAnimation.setDuration(600);
+        moveBackAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            public void onAnimationUpdate(ValueAnimator animation) {
+                Float value = (Float) animation.getAnimatedValue();
+                centerScale = value.floatValue();
+                invalidate();
+            }
+        });
+
+
+        final AnimatorSet animatorSet = new AnimatorSet();
+
+        animatorSet.playSequentially(moveBeginningAnimation,moveMiddleAnimation,moveMaxAnimation,moveBackAnimation);
+
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                animatorSet.start();
+            }
+        });
+
+        animatorSet.start();
+
+
 
     }
 

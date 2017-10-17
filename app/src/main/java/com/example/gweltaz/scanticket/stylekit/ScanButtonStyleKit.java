@@ -1,11 +1,13 @@
 package com.example.gweltaz.scanticket.stylekit;
 
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Path;
 
+import java.util.Stack;
 
 
 /**
@@ -17,7 +19,7 @@ import android.graphics.Path;
  *
  * @author AuthorName
  */
-public class ShotButtonStyleKit {
+public class ScanButtonStyleKit {
 
 
     // Resizing Behavior
@@ -37,14 +39,14 @@ public class ShotButtonStyleKit {
     }
 
     public static void drawCanvas1(Canvas canvas) {
-        ShotButtonStyleKit.drawCanvas1(canvas, new RectF(0f, 0f, 240f, 120f), ResizingBehavior.AspectFit);
+        ScanButtonStyleKit.drawCanvas1(canvas, new RectF(0f, 0f, 240f, 120f), ResizingBehavior.AspectFit);
     }
 
     public static void drawCanvas1(Canvas canvas, RectF targetFrame, ResizingBehavior resizing) {
         // Resize to Target Frame
         canvas.save();
         RectF resizedFrame = CacheForCanvas1.resizedFrame;
-        ShotButtonStyleKit.resizingBehaviorApply(resizing, CacheForCanvas1.originalFrame, targetFrame, resizedFrame);
+        ScanButtonStyleKit.resizingBehaviorApply(resizing, CacheForCanvas1.originalFrame, targetFrame, resizedFrame);
         canvas.translate(resizedFrame.left, resizedFrame.top);
         canvas.scale(resizedFrame.width() / 240f, resizedFrame.height() / 120f);
 
@@ -53,9 +55,9 @@ public class ShotButtonStyleKit {
         canvas.restore();
     }
 
-    private static class CacheForShotButton {
+    private static class CacheForButton {
         private static Paint paint = new Paint();
-        private static RectF originalFrame = new RectF(0f, 0f, 30f, 30f);
+        private static RectF originalFrame = new RectF(0f, 0f, 39f, 39f);
         private static RectF resizedFrame = new RectF();
         private static RectF insideRect = new RectF();
         private static Path insidePath = new Path();
@@ -63,66 +65,70 @@ public class ShotButtonStyleKit {
         private static Path outsidePath = new Path();
     }
 
-    public static void drawShotButton(Canvas canvas,int arcRotation) {
-        ShotButtonStyleKit.drawShotButton(canvas, new RectF(0f, 0f, 30f, 30f), ResizingBehavior.AspectFit,arcRotation);
+    public static void drawButton(Canvas canvas, float arcRotation, float centerScale) {
+        ScanButtonStyleKit.drawButton(canvas, new RectF(0f, 0f, 39f, 39f), ResizingBehavior.AspectFit, arcRotation, centerScale);
     }
 
-    public static void drawShotButton(Canvas canvas, RectF targetFrame, ResizingBehavior resizing,int arcRotation) {
+    public static void drawButton(Canvas canvas, RectF targetFrame, ResizingBehavior resizing, float arcRotation, float centerScale) {
         // General Declarations
-        Paint paint = CacheForShotButton.paint;
+        Stack<Matrix> currentTransformation = new Stack<Matrix>();
+        currentTransformation.push(new Matrix());
+        Paint paint = CacheForButton.paint;
 
         // Local Colors
+        int fillColor4 = Color.argb(255, 255, 255, 255);
         int strokeColor = Color.argb(255, 139, 195, 74);
-        int fillColor2 = Color.argb(230, 255, 255, 255);
+
         // Resize to Target Frame
         canvas.save();
-
-
-        RectF resizedFrame = CacheForShotButton.resizedFrame;
-        ShotButtonStyleKit.resizingBehaviorApply(resizing, CacheForShotButton.originalFrame, targetFrame, resizedFrame);
-        canvas.rotate(arcRotation);
+        RectF resizedFrame = CacheForButton.resizedFrame;
+        ScanButtonStyleKit.resizingBehaviorApply(resizing, CacheForButton.originalFrame, targetFrame, resizedFrame);
         canvas.translate(resizedFrame.left, resizedFrame.top);
-        canvas.scale(resizedFrame.width() / 30f, resizedFrame.height() / 30f);
+        canvas.scale(resizedFrame.width() / 39f, resizedFrame.height() / 39f);
 
+        // inside
+        canvas.save();
+        canvas.translate(19.5f, 19.5f);
+        currentTransformation.peek().postTranslate(19.5f, 19.5f);
+        canvas.scale(centerScale, centerScale);
+        currentTransformation.peek().postScale(centerScale, centerScale);
+        RectF insideRect = CacheForButton.insideRect;
+        insideRect.set(-6f, -6f, 6f, 6f);
+        Path insidePath = CacheForButton.insidePath;
+        insidePath.reset();
+        insidePath.addOval(insideRect, Path.Direction.CW);
 
-        // Symbols
-        {
-            // ShotGroup
-            {
-                // inside
-                RectF insideRect = CacheForShotButton.insideRect;
-                insideRect.set(12.76f, 13.76f, 16.24f, 17.24f);
-                Path insidePath = CacheForShotButton.insidePath;
-                insidePath.reset();
-                insidePath.addOval(insideRect, Path.Direction.CW);
-
-                paint.reset();
-                paint.setFlags(Paint.ANTI_ALIAS_FLAG);
-                paint.setStyle(Paint.Style.FILL);
-                paint.setColor(fillColor2);
-                canvas.drawPath(insidePath, paint);
-
-                // outside
-                RectF outsideRect = CacheForShotButton.outsideRect;
-                outsideRect.set(6.49f, 7.49f, 22.51f, 23.51f);
-                Path outsidePath = CacheForShotButton.outsidePath;
-                outsidePath.reset();
-                outsidePath.addArc(outsideRect, 225f, (360f * (float) Math.ceil(59f / 360f)) - 59f);
-
-                paint.reset();
-                paint.setFlags(Paint.ANTI_ALIAS_FLAG);
-                paint.setStrokeWidth(0.5f);
-                paint.setStrokeMiter(10f);
-                canvas.save();
-                paint.setStyle(Paint.Style.STROKE);
-                paint.setColor(strokeColor);
-                canvas.drawPath(outsidePath, paint);
-                canvas.restore();
-            }
-        }
-
+        paint.reset();
+        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(fillColor4);
+        canvas.drawPath(insidePath, paint);
         canvas.restore();
 
+        // outside
+        canvas.save();
+        canvas.translate(19.5f, 19.5f);
+        currentTransformation.peek().postTranslate(19.5f, 19.5f);
+        canvas.rotate(-arcRotation);
+        currentTransformation.peek().postRotate(-arcRotation);
+        RectF outsideRect = CacheForButton.outsideRect;
+        outsideRect.set(-16.7f, -16.7f, 16.7f, 16.7f);
+        Path outsidePath = CacheForButton.outsidePath;
+        outsidePath.reset();
+        outsidePath.addArc(outsideRect, -378f, 275f);
+
+        paint.reset();
+        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        paint.setStrokeWidth(1f);
+        paint.setStrokeMiter(10f);
+        canvas.save();
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(strokeColor);
+        canvas.drawPath(outsidePath, paint);
+        canvas.restore();
+        canvas.restore();
+
+        canvas.restore();
     }
 
 
@@ -166,7 +172,4 @@ public class ShotButtonStyleKit {
     }
 
 
-
 }
-
-
