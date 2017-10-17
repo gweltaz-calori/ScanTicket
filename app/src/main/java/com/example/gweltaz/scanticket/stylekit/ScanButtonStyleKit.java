@@ -19,6 +19,7 @@ import java.util.Stack;
  *
  * @author AuthorName
  */
+
 public class ScanButtonStyleKit {
 
 
@@ -33,15 +34,14 @@ public class ScanButtonStyleKit {
     // Canvas Drawings
     // Tab
 
-
     private static class CacheForButton {
         private static Paint paint = new Paint();
         private static RectF originalFrame = new RectF(0f, 0f, 39f, 39f);
         private static RectF resizedFrame = new RectF();
-        private static RectF insideRect = new RectF();
-        private static Path insidePath = new Path();
         private static RectF outsideRect = new RectF();
         private static Path outsidePath = new Path();
+        private static RectF insideRect = new RectF();
+        private static Path insidePath = new Path();
     }
 
     public static void drawButton(Canvas canvas, float arcRotation, float centerScale) {
@@ -65,25 +65,6 @@ public class ScanButtonStyleKit {
         canvas.translate(resizedFrame.left, resizedFrame.top);
         canvas.scale(resizedFrame.width() / 39f, resizedFrame.height() / 39f);
 
-        // inside
-        canvas.save();
-        canvas.translate(19.5f, 19.5f);
-        currentTransformation.peek().postTranslate(19.5f, 19.5f);
-        canvas.scale(centerScale, centerScale);
-        currentTransformation.peek().postScale(centerScale, centerScale);
-        RectF insideRect = CacheForButton.insideRect;
-        insideRect.set(-6f, -6f, 6f, 6f);
-        Path insidePath = CacheForButton.insidePath;
-        insidePath.reset();
-        insidePath.addOval(insideRect, Path.Direction.CW);
-
-        paint.reset();
-        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(fillColor4);
-        canvas.drawPath(insidePath, paint);
-        canvas.restore();
-
         // outside
         canvas.save();
         canvas.translate(19.5f, 19.5f);
@@ -105,6 +86,25 @@ public class ScanButtonStyleKit {
         paint.setColor(strokeColor);
         canvas.drawPath(outsidePath, paint);
         canvas.restore();
+        canvas.restore();
+
+        // inside
+        canvas.save();
+        canvas.translate(19.5f, 19.5f);
+        currentTransformation.peek().postTranslate(19.5f, 19.5f);
+        canvas.scale(centerScale, centerScale);
+        currentTransformation.peek().postScale(centerScale, centerScale);
+        RectF insideRect = CacheForButton.insideRect;
+        insideRect.set(-6f, -6f, 6f, 6f);
+        Path insidePath = CacheForButton.insidePath;
+        insidePath.reset();
+        insidePath.addOval(insideRect, Path.Direction.CW);
+
+        paint.reset();
+        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(fillColor4);
+        canvas.drawPath(insidePath, paint);
         canvas.restore();
 
         canvas.restore();

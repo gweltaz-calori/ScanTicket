@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.gweltaz.scanticket.stylekit.HelpButtonStyleKit;
 

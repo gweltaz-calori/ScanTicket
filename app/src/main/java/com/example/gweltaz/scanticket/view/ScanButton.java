@@ -82,12 +82,11 @@ public class ScanButton extends View {
                 invalidate();
             }
         });
-        /*moveBeginningAnimation.setRepeatCount(ValueAnimator.INFINITE);
-        moveBeginningAnimation.setRepeatMode(ValueAnimator.RESTART);*/
+
 
         ValueAnimator moveMiddleAnimation = ValueAnimator.ofFloat(0.8f, 1.2f);
         moveMiddleAnimation.setDuration(600);
-        moveMiddleAnimation.setStartDelay(200);
+
         moveMiddleAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
                 Float value = (Float) animation.getAnimatedValue();
@@ -95,11 +94,8 @@ public class ScanButton extends View {
                 invalidate();
             }
         });
-        /*moveMiddleAnimation.setRepeatCount(ValueAnimator.INFINITE);
-        moveMiddleAnimation.setRepeatMode(ValueAnimator.RESTART);*/
 
-
-        ValueAnimator moveMaxAnimation = ValueAnimator.ofFloat(1.2f, 2.6f);
+        ValueAnimator moveMaxAnimation = ValueAnimator.ofFloat(1.2f, 2.9f);
         moveMaxAnimation.setDuration(600);
         moveMaxAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -110,7 +106,7 @@ public class ScanButton extends View {
         });
 
 
-        ValueAnimator moveBackAnimation = ValueAnimator.ofFloat(2.6f,0.2f);
+        ValueAnimator moveBackAnimation = ValueAnimator.ofFloat(2.9f,0.2f);
         moveBackAnimation.setDuration(600);
         moveBackAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
