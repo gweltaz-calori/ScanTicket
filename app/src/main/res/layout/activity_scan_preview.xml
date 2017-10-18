@@ -22,40 +22,13 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
+    <com.example.gweltaz.scanticket.components.PreviewMenu
+        android:layout_width="match_parent"
         android:layout_marginBottom="25dp"
         android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
-            <ImageButton
-                android:layout_centerInParent="true"
-                android:background="@drawable/ripple"
-                android:src="@drawable/ic_crop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageButton
-                android:layout_centerInParent="true"
-                android:background="@drawable/ripple"
-                android:clickable="true"
-                android:src="@drawable/ic_picture_filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </RelativeLayout>
-    </LinearLayout>
+    </com.example.gweltaz.scanticket.components.PreviewMenu>
 
 </RelativeLayout>
