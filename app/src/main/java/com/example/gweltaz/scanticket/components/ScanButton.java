@@ -1,4 +1,4 @@
-package com.example.gweltaz.scanticket.view;
+package com.example.gweltaz.scanticket.components;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -10,7 +10,6 @@ import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 import com.example.gweltaz.scanticket.stylekit.ScanButtonStyleKit;

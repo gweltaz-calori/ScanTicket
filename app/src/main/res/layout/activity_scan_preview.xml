@@ -4,8 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fake_preview"
     tools:context="com.example.gweltaz.scanticket.activity.ScanPreviewActivity">
+
+    <RelativeLayout
+        android:id="@+id/scanPreview"
+        android:background="@drawable/fake_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
 
     <android.support.v7.widget.Toolbar
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -14,4 +21,41 @@
         android:layout_height="?attr/actionBarSize">
 
     </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_marginBottom="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:layout_centerInParent="true"
+                android:background="@drawable/ripple"
+                android:src="@drawable/ic_crop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:layout_centerInParent="true"
+                android:background="@drawable/ripple"
+                android:clickable="true"
+                android:src="@drawable/ic_picture_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
 </RelativeLayout>

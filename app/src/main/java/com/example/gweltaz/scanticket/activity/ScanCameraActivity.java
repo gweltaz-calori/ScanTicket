@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.example.gweltaz.scanticket.R;
 import com.example.gweltaz.scanticket.utils.Utils;
-import com.example.gweltaz.scanticket.view.ScanButton;
+import com.example.gweltaz.scanticket.components.ScanButton;
 
 public class ScanCameraActivity extends AppCompatActivity {
 

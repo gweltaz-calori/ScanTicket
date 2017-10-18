@@ -1,4 +1,4 @@
-package com.example.gweltaz.scanticket.view;
+package com.example.gweltaz.scanticket.components;
 
 import android.content.Context;
 import android.graphics.Canvas;

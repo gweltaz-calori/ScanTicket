@@ -35,7 +35,7 @@ public class ScanPreviewActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.preview,menu);
+        getMenuInflater().inflate(R.menu.preview_top,menu);
         return true;
     }
 }

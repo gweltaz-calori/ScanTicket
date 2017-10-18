@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:background="@drawable/fake_scan"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.gweltaz.scanticket.view.HelpButton
+    <RelativeLayout
+        android:id="@+id/scanCamera"
+        android:background="@drawable/fake_scan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
+
+
+    <com.example.gweltaz.scanticket.components.HelpButton
         android:id="@+id/helpButton"
         android:layout_marginEnd="29dp"
         android:layout_width="38dp"
@@ -14,7 +22,7 @@
         android:layout_alignParentEnd="true" />
 
 
-    <com.example.gweltaz.scanticket.view.ScanButton
+    <com.example.gweltaz.scanticket.components.ScanButton
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
