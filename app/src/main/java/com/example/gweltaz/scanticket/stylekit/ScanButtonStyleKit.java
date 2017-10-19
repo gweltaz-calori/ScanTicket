@@ -44,11 +44,11 @@ public class ScanButtonStyleKit {
         private static Path insidePath = new Path();
     }
 
-    public static void drawButton(Canvas canvas, float arcRotation, float centerScale) {
-        ScanButtonStyleKit.drawButton(canvas, new RectF(0f, 0f, 39f, 39f), ResizingBehavior.AspectFit, arcRotation, centerScale);
+    public static void drawButton(Canvas canvas, float arcRotation, float centerScale,int color, float filledArc) {
+        ScanButtonStyleKit.drawButton(canvas, new RectF(0f, 0f, 39f, 39f), ResizingBehavior.AspectFit, arcRotation, centerScale,color, filledArc);
     }
 
-    public static void drawButton(Canvas canvas, RectF targetFrame, ResizingBehavior resizing, float arcRotation, float centerScale) {
+    public static void drawButton(Canvas canvas, RectF targetFrame, ResizingBehavior resizing, float arcRotation, float centerScale,int color, float filledArc) {
         // General Declarations
         Stack<Matrix> currentTransformation = new Stack<Matrix>();
         currentTransformation.push(new Matrix());
@@ -56,7 +56,7 @@ public class ScanButtonStyleKit {
 
         // Local Colors
         int fillColor4 = Color.argb(255, 255, 255, 255);
-        int strokeColor = Color.argb(255, 139, 195, 74);
+        int strokeColor = color;
 
         // Resize to Target Frame
         canvas.save();
@@ -75,7 +75,7 @@ public class ScanButtonStyleKit {
         outsideRect.set(-16.7f, -16.7f, 16.7f, 16.7f);
         Path outsidePath = CacheForButton.outsidePath;
         outsidePath.reset();
-        outsidePath.addArc(outsideRect, -378f, 275f);
+        outsidePath.addArc(outsideRect, -378f, 378f - filledArc + (-filledArc < -378f ? 360f * (float) Math.ceil((filledArc - 378f) / 360f) : 0f));
 
         paint.reset();
         paint.setFlags(Paint.ANTI_ALIAS_FLAG);
