@@ -8,10 +8,6 @@ import android.widget.RelativeLayout;
 
 import com.example.gweltaz.scanticket.R;
 
-/**
- * Created by gweltaz on 18/10/2017.
- */
-
 public class PreviewMenuItem extends RelativeLayout {
 
     private int backgroundImage;
@@ -32,10 +28,6 @@ public class PreviewMenuItem extends RelativeLayout {
         initView();
     }
 
-    public PreviewMenuItem(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        initView();
-    }
 
     private void initView() {
 

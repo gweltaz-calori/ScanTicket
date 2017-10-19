@@ -3,10 +3,6 @@ package com.example.gweltaz.scanticket.utils;
 import android.view.View;
 import android.view.Window;
 
-/**
- * Created by gweltaz on 17/10/2017.
- */
-
 public class Utils {
 
     public static void hideSystemUI(Window window) {

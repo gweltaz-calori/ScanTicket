@@ -6,4 +6,5 @@
     <color name="background">#FAFAFA</color>
     <color name="white">#FFF</color>
     <color name="colorRipple">#1AFFFFFF</color>
+    <color name="darkBlack">#99000000</color>
 </resources>

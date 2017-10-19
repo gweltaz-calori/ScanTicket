@@ -15,21 +15,26 @@
 
 
     <com.example.gweltaz.scanticket.components.HelpButton
+
         android:id="@+id/helpButton"
         android:layout_marginEnd="29dp"
         android:layout_width="38dp"
+        android:scaleY="0"
+        android:scaleX="0"
         android:layout_height="38dp"
         android:layout_alignTop="@+id/scanButton"
         android:layout_alignParentEnd="true" />
 
 
     <com.example.gweltaz.scanticket.components.ScanButton
+        android:translationY="200dp"
+        android:id="@+id/scanButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
-        android:id="@+id/scanButton" />
+        android:layout_marginBottom="40dp" />
+
 
     <Button
         android:id="@+id/changeStep"
@@ -41,20 +46,36 @@
         android:layout_marginTop="18dp"
         android:text="Change step" />
 
-    <com.example.gweltaz.scanticket.components.BubbleHelp
+    <com.example.gweltaz.scanticket.components.AgkitMessage
         android:id="@+id/helpMessage"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/helpButton"
-        android:layout_marginBottom="24dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="45dp"
         android:background="@drawable/bubble_background"
-        android:elevation="2dp"
         android:padding="10dp"
-        android:translationY="-500dp"
         android:text="@string/help_message"
         android:textColor="@android:color/black"
-        android:textSize="12dp" />
+        android:textSize="12dp"
+        android:alpha="0"
+        android:layout_marginBottom="23dp"
+        android:layout_above="@+id/helpButton"
+        android:layout_alignEnd="@+id/helpButton" />
+
+    <com.example.gweltaz.scanticket.components.AgkitMessage
+        android:id="@+id/errorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/error_background"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:alpha="0"
+        android:text="@string/step_away"
+        android:textColor="@android:color/white"
+        android:textSize="12dp"
+        android:textAlignment="center"
+        android:layout_alignBottom="@+id/helpMessage"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

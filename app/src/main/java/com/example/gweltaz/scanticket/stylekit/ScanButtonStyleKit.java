@@ -79,7 +79,7 @@ public class ScanButtonStyleKit {
 
         paint.reset();
         paint.setFlags(Paint.ANTI_ALIAS_FLAG);
-        paint.setStrokeWidth(1f);
+        paint.setStrokeWidth(1.5f);
         paint.setStrokeMiter(10f);
         canvas.save();
         paint.setStyle(Paint.Style.STROKE);

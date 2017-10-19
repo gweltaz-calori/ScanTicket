@@ -6,4 +6,5 @@
     <string name="title_notifications">Notifications</string>
     <string name="validate">Valider</string>
     <string name="help_message" >Placez votre téléphone au dessus du ticket bien à plat, sur un fond uni contrasté et sans obstruer les bords. </string>
+    <string name="step_away">Éloignez-vous</string>
 </resources>

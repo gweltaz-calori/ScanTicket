@@ -14,12 +14,9 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
+import com.example.gweltaz.scanticket.interfaces.OnStepChangedListener;
 import com.example.gweltaz.scanticket.stylekit.ScanButtonStyleKit;
 
-
-/**
- * Created by gweltaz on 16/10/2017.
- */
 
 public class ScanButton extends View {
 
@@ -32,6 +29,8 @@ public class ScanButton extends View {
     private ValueAnimator moveMaxAnimation;
     private AnimatorSet circleAnimatorSet = new AnimatorSet();
     private AnimatorSet arcAnimatorSet = new AnimatorSet();
+
+    private OnStepChangedListener stepChangedListener;
 
     public ScanButton(Context context) {
         super(context);
@@ -48,6 +47,10 @@ public class ScanButton extends View {
         createAnimation();
     }
 
+    public void setOnStepChangedListener(OnStepChangedListener listener) {
+        stepChangedListener = listener;
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -57,6 +60,7 @@ public class ScanButton extends View {
 
     private void createAnimation() {
 
+        this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         createArcAnimation();
         createCircleAnimation();
 
@@ -68,7 +72,7 @@ public class ScanButton extends View {
         arcAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
                 Integer value = (Integer) animation.getAnimatedValue();
-                arcRotation = value.intValue();
+                arcRotation = value;
                 invalidate();
             }
         });
@@ -80,8 +84,6 @@ public class ScanButton extends View {
         arcAnimation.start();
 
 
-
-
     }
 
     private void createCircleAnimation() {
@@ -90,8 +92,7 @@ public class ScanButton extends View {
         moveBeginningAnimation.setDuration(600);
         moveBeginningAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
-                Float value = (Float) animation.getAnimatedValue();
-                centerScale = value.floatValue();
+                centerScale = (Float) animation.getAnimatedValue();
                 invalidate();
             }
         });
@@ -102,8 +103,7 @@ public class ScanButton extends View {
 
         moveMiddleAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
-                Float value = (Float) animation.getAnimatedValue();
-                centerScale = value.floatValue();
+                centerScale = (Float) animation.getAnimatedValue();
                 invalidate();
             }
         });
@@ -112,8 +112,7 @@ public class ScanButton extends View {
         moveMaxAnimation.setDuration(600);
         moveMaxAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
-                Float value = (Float) animation.getAnimatedValue();
-                centerScale = value.floatValue();
+                centerScale = (Float) animation.getAnimatedValue();
                 invalidate();
             }
         });
@@ -123,8 +122,7 @@ public class ScanButton extends View {
         moveBackAnimation.setDuration(600);
         moveBackAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
-                Float value = (Float) animation.getAnimatedValue();
-                centerScale = value.floatValue();
+                centerScale = (Float) animation.getAnimatedValue();
                 invalidate();
             }
         });
@@ -139,6 +137,9 @@ public class ScanButton extends View {
                 if (currentStep != ScanStep.READY) {
                     circleAnimatorSet.start();
                 }
+                else {
+                    stepChangedListener.onSuccess();
+                }
             }
         });
 
@@ -149,26 +150,26 @@ public class ScanButton extends View {
 
     }
 
-    //for testing purposes
+    //for testing purposes , remove this with scan
     public void changeStep() {
 
         if(currentStep == ScanStep.ERROR) {
             currentStep = ScanStep.READY;
-
             circleFilledPath = 17;
             moveBackAnimation.setFloatValues(2.5f,2.5f);
         }
         else if(currentStep == ScanStep.PROCESSING) {
             currentStep = ScanStep.ERROR;
-            circleFilledPath = 103;
-            moveBackAnimation.setFloatValues(2.5f,0.2f);
-            circleAnimatorSet.resume();
+            stepChangedListener.onError();
+
         }
         else if(currentStep == ScanStep.READY) {
             currentStep = ScanStep.PROCESSING;
             circleFilledPath = 103;
             moveBackAnimation.setFloatValues(2.5f,0.2f);
-            circleAnimatorSet.resume();
+
+            circleAnimatorSet.cancel();
+            circleAnimatorSet.start();
         }
 
         circleAnimatorSet.setDuration(currentStep.getSpeed());
