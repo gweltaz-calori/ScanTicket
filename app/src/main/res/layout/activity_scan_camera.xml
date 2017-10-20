@@ -55,10 +55,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
-        android:text="Change step"
+        android:text="next step"
         android:layout_below="@+id/toolbar"
         android:layout_toStartOf="@+id/scanButton"
         android:layout_marginEnd="14dp" />
+
 
     <com.example.gweltaz.scanticket.components.AgkitMessage
         android:id="@+id/helpMessage"

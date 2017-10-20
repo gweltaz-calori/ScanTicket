@@ -51,7 +51,6 @@ public class AgkitMessage extends AppCompatTextView {
         ObjectAnimator alpha = ObjectAnimator.ofFloat(this,"alpha",0,1);
         alpha.setDuration(300);
 
-
         bubbleAnimation = new AnimatorSet();
 
         bubbleAnimation.playTogether(scaleY,scaleX,alpha);

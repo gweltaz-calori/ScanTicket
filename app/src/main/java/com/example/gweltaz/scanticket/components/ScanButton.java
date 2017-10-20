@@ -16,6 +16,7 @@ import android.view.animation.AnticipateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 import com.example.gweltaz.scanticket.interfaces.OnStepChangedListener;
+import com.example.gweltaz.scanticket.enums.ScanStep;
 import com.example.gweltaz.scanticket.stylekit.ScanButtonStyleKit;
 
 
@@ -30,6 +31,8 @@ public class ScanButton extends View {
     private ValueAnimator moveMaxAnimation;
     private AnimatorSet circleAnimatorSet = new AnimatorSet();
     private AnimatorSet arcAnimatorSet = new AnimatorSet();
+
+    private boolean mCanceled = false;
 
     private OnStepChangedListener stepChangedListener;
 
@@ -135,13 +138,29 @@ public class ScanButton extends View {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                if (currentStep != ScanStep.READY) {
-                    circleAnimatorSet.start();
-                }
-                else {
-                    stepChangedListener.onSuccess();
+
+                if(!mCanceled) {
+
+                    if (currentStep != ScanStep.READY) {
+                        circleAnimatorSet.start();
+                    }
+                    else {
+                        stepChangedListener.onSuccess();
+                    }
+
                 }
             }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                mCanceled = true;
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mCanceled = false;
+            }
+
         });
 
         circleAnimatorSet.setDuration(currentStep.getSpeed());
@@ -151,20 +170,20 @@ public class ScanButton extends View {
 
     }
 
-    //for testing purposes , remove this with scan
+    //for testing purposes , remove this with real scan
     public void changeStep() {
 
-        if(currentStep == ScanStep.ERROR) {
+        if(currentStep == ScanStep.ERROR) { //next step is ready
             currentStep = ScanStep.READY;
             circleFilledPath = 17;
             moveBackAnimation.setFloatValues(2.5f,2.5f);
         }
-        else if(currentStep == ScanStep.PROCESSING) {
+        else if(currentStep == ScanStep.PROCESSING) { //set next step error
             currentStep = ScanStep.ERROR;
             stepChangedListener.onError();
 
         }
-        else if(currentStep == ScanStep.READY) {
+        else if(currentStep == ScanStep.READY) { //set next step to processing
             currentStep = ScanStep.PROCESSING;
             circleFilledPath = 103;
             moveBackAnimation.setFloatValues(2.5f,0.2f);
@@ -173,10 +192,22 @@ public class ScanButton extends View {
             circleAnimatorSet.start();
         }
 
+
         circleAnimatorSet.setDuration(currentStep.getSpeed());
         arcAnimatorSet.setDuration(currentStep.getSpeed());
 
     }
+
+    public void changeMode(boolean isAuto) {
+        //todo change mode
+        if(isAuto) {
+
+        }
+    }
+
+
+
+
 
 
     // appear animation
@@ -188,25 +219,4 @@ public class ScanButton extends View {
     }
 
 }
-enum ScanStep {
 
-    READY(Color.argb(255, 139, 195, 74),1000),
-    ERROR(Color.argb(100, 239, 83, 80),800),
-    PROCESSING(Color.argb(100, 255, 193, 7),400);
-
-    private int color;
-    private int speed;
-
-    public int getColor() {
-        return color;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    ScanStep(int color, int speed) {
-        this.color = color;
-        this.speed = speed;
-    }
-}

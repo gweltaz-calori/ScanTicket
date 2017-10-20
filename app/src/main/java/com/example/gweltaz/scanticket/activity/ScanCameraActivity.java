@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.gweltaz.scanticket.R;
 import com.example.gweltaz.scanticket.components.AgkitMessage;
 import com.example.gweltaz.scanticket.components.HelpButton;
+import com.example.gweltaz.scanticket.enums.ScanStep;
 import com.example.gweltaz.scanticket.interfaces.OnStepChangedListener;
 import com.example.gweltaz.scanticket.utils.Utils;
 import com.example.gweltaz.scanticket.components.ScanButton;
@@ -28,6 +29,7 @@ public class ScanCameraActivity extends AppCompatActivity {
     private HelpButton helpButton;
 
     private boolean isHelpShowing = false;
+    private boolean isErrorVisible = false;
     private boolean captureAuto = true;
 
 
@@ -74,6 +76,7 @@ public class ScanCameraActivity extends AppCompatActivity {
             }
         });
 
+
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,11 +109,19 @@ public class ScanCameraActivity extends AppCompatActivity {
     }
 
     private void showErrorMessage() {
+
+        if(isErrorVisible) {
+            return;
+        }
+
+        isErrorVisible = true;
+
         errorMessage.animateIn(); //appear
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
                 errorMessage.animateOut();
+                isErrorVisible = false;
             }
         }, 2000); //disappear after 2 seconds
     }
@@ -144,6 +155,7 @@ public class ScanCameraActivity extends AppCompatActivity {
                 else {
                     automaticText.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
                 }
+
 
             }
         });

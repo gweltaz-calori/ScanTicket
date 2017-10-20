@@ -9,4 +9,5 @@
     <color name="darkBlack">#99000000</color>
     <color name="overlayBlack">#73000000</color>
     <color name="orange">#FFC107</color>
+    <color name="darkGrey">#575757</color>
 </resources>
