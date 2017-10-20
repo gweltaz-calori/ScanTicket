@@ -72,7 +72,6 @@ public class HelpButton extends View{
         ObjectAnimator scaleX = ObjectAnimator.ofFloat(this,"scaleY",0,1);
         scaleX.setDuration(1000);
 
-
         AnimatorSet helpButtonSet  = new AnimatorSet();
         helpButtonSet.playTogether(scaleX,scaleY);
 

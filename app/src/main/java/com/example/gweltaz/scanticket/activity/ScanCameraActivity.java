@@ -27,11 +27,8 @@ public class ScanCameraActivity extends AppCompatActivity {
     private Button changeStep;
     private HelpButton helpButton;
 
-    private static final int CAPTURE_AUTO = 1;
-    private static final int CAPTURE_MANUAL = 0;
-
     private boolean isHelpShowing = false;
-    private int captureMode = CAPTURE_AUTO;
+    private boolean captureAuto = true;
 
 
     @Override
@@ -138,14 +135,16 @@ public class ScanCameraActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TextView automaticText = actionView.findViewById(R.id.automatic_text); //retrieve the text view inside the custom view
-                if(captureMode == CAPTURE_AUTO) {
-                    automaticText.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
-                    captureMode = CAPTURE_MANUAL;
+
+                captureAuto = !captureAuto;
+
+                if(captureAuto) {
+                    automaticText.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.orange));
                 }
                 else {
-                    automaticText.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.orange));
-                    captureMode = CAPTURE_AUTO;
+                    automaticText.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
                 }
+
             }
         });
 
