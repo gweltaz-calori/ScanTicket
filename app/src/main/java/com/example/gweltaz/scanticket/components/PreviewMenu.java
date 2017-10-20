@@ -28,11 +28,11 @@ public class PreviewMenu extends LinearLayout {
         LayoutParams previewActionsParams = new LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         this.setLayoutParams(previewActionsParams);
 
-        PreviewMenuItem editMenu = new PreviewMenuItem(getContext(), R.drawable.ic_picture_filter);
-        PreviewMenuItem cropMenu = new PreviewMenuItem(getContext(),R.drawable.ic_crop);
+        PreviewMenuItem editMenu = new PreviewMenuItem(getContext(), R.drawable.ic_action_magic);
+        PreviewMenuItem rotateMenu = new PreviewMenuItem(getContext(),R.drawable.ic_action_rotate);
 
         this.addView(editMenu);
-        this.addView(cropMenu);
+        this.addView(rotateMenu);
 
     }
 

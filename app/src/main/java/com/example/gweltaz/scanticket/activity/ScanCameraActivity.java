@@ -6,11 +6,11 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AnticipateInterpolator;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.gweltaz.scanticket.R;
 import com.example.gweltaz.scanticket.components.AgkitMessage;
@@ -27,10 +27,18 @@ public class ScanCameraActivity extends AppCompatActivity {
     private Button changeStep;
     private HelpButton helpButton;
 
+    private boolean isHelpShowing = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_camera);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         helpMessage = (AgkitMessage) findViewById(R.id.helpMessage);
         scanButton = (ScanButton) findViewById(R.id.scanButton);
@@ -66,17 +74,23 @@ public class ScanCameraActivity extends AppCompatActivity {
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"showing help ",Toast.LENGTH_SHORT).show();
+                initBubbleHelp();
             }
         });
 
         initBubbleHelp();
-        showScanButton();
-        showHelpButton();
+        scanButton.show();
+        helpButton.show();
 
     }
 
     private void initBubbleHelp() {
+
+        if(isHelpShowing) {
+            return;
+        }
+
+        isHelpShowing = true;
 
         helpMessage.animateIn();
 
@@ -84,42 +98,22 @@ public class ScanCameraActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             public void run() {
                 helpMessage.animateOut();
+                isHelpShowing = false;
             }
         }, 5000);
     }
 
-    private void showScanButton() {
-
-        ObjectAnimator translateY = ObjectAnimator.ofFloat(scanButton,"translationY",200,0);
-        translateY.setInterpolator(new AnticipateInterpolator());
-        translateY.setDuration(1000);
-        translateY.start();
-
-    }
-
-    private void showHelpButton() {
-
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(helpButton,"scaleX",0,1);
-        scaleY.setDuration(1000);
-
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(helpButton,"scaleY",0,1);
-        scaleX.setDuration(1000);
-
-
-        AnimatorSet helpButtonSet  = new AnimatorSet();
-        helpButtonSet.playTogether(scaleX,scaleY);
-
-        helpButtonSet.setInterpolator(new AnticipateInterpolator());
-
-        helpButtonSet.start();
-
-
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
         Utils.hideSystemUI(getWindow());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.camera_top,menu);
+        return true;
     }
 
 }

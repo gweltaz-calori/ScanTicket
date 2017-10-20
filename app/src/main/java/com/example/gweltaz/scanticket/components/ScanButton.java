@@ -3,6 +3,7 @@ package com.example.gweltaz.scanticket.components;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -11,6 +12,7 @@ import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AnticipateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
@@ -60,6 +62,7 @@ public class ScanButton extends View {
 
     private void createAnimation() {
 
+        //Flou sinon à cause de l'hardware
         this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         createArcAnimation();
         createCircleAnimation();
@@ -175,8 +178,13 @@ public class ScanButton extends View {
         circleAnimatorSet.setDuration(currentStep.getSpeed());
         arcAnimatorSet.setDuration(currentStep.getSpeed());
 
+    }
 
-
+    public void show() {
+        ObjectAnimator translateY = ObjectAnimator.ofFloat(this,"translationY",200,0);
+        translateY.setInterpolator(new AnticipateInterpolator());
+        translateY.setDuration(1000);
+        translateY.start();
     }
 
 }

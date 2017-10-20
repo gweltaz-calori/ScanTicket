@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/camera_view"
+<RelativeLayout android:id="@+id/camera_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:id="@+id/scanCamera"
@@ -13,6 +13,13 @@
 
     </RelativeLayout>
 
+    <android.support.v7.widget.Toolbar
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+    </android.support.v7.widget.Toolbar>
 
     <com.example.gweltaz.scanticket.components.HelpButton
 
@@ -40,11 +47,11 @@
         android:id="@+id/changeStep"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="18dp"
-        android:text="Change step" />
+        android:layout_marginTop="44dp"
+        android:text="Change step"
+        android:layout_below="@+id/toolbar"
+        android:layout_toStartOf="@+id/scanButton"
+        android:layout_marginEnd="14dp" />
 
     <com.example.gweltaz.scanticket.components.AgkitMessage
         android:id="@+id/helpMessage"
@@ -70,6 +77,8 @@
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:alpha="0"
+        android:scaleX="0"
+        android:scaleY="0"
         android:text="@string/step_away"
         android:textColor="@android:color/white"
         android:textSize="12dp"
