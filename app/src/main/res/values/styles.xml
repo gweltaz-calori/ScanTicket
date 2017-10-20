@@ -11,6 +11,7 @@
     <style name="AppTheme.TransparentActionBar" parent="Theme.AppCompat.Light">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorAccent">@color/orange</item>
     </style>
 
 </resources>

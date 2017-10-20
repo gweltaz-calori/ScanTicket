@@ -2,7 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_item"
+        android:id="@+id/action_automatic"
+        app:actionLayout="@layout/automatic_menu_text"
         app:showAsAction="always"
         android:title="@string/automatic" />
 </menu>

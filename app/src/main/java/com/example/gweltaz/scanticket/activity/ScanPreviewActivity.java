@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.gweltaz.scanticket.R;
 import com.example.gweltaz.scanticket.utils.Utils;
@@ -16,7 +18,9 @@ public class ScanPreviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scan_preview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("");
+        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
@@ -38,4 +42,6 @@ public class ScanPreviewActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.preview_top,menu);
         return true;
     }
+
+
 }
