@@ -43,7 +43,7 @@ public class HelpButton extends View{
         HelpButtonStyleKit.drawHelpButton(canvas,new RectF(0,0,getWidth(),getHeight()), HelpButtonStyleKit.ResizingBehavior.AspectFit,opacity);
     }
 
-
+    //only for changing opacity when clicking
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
@@ -63,6 +63,7 @@ public class HelpButton extends View{
         return true;
     }
 
+    //pop animation
     public void show() {
 
         ObjectAnimator scaleY = ObjectAnimator.ofFloat(this,"scaleX",0,1);

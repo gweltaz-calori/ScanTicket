@@ -23,6 +23,8 @@ public class PreviewMenu extends LinearLayout {
         initView();
     }
 
+    //create bottom menu programatically
+
     private void initView() {
 
         LayoutParams previewActionsParams = new LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

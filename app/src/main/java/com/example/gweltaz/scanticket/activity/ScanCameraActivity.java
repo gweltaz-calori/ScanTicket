@@ -53,31 +53,30 @@ public class ScanCameraActivity extends AppCompatActivity {
         errorMessage = (AgkitMessage) findViewById(R.id.errorMessage);
         helpButton = (HelpButton) findViewById(R.id.helpButton);
 
+        // Listener pour savoir quand l'état du scan button change
         scanButton.setOnStepChangedListener(new OnStepChangedListener() {
             @Override
             public void onError() {
-                errorMessage.animateIn();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        errorMessage.animateOut();
-                    }
-                }, 2000);
+                showErrorMessage();
             }
 
             @Override
             public void onSuccess() {
+                // we can open new intent
                 Intent previewActivity = new Intent(getApplicationContext(),ScanPreviewActivity.class);
                 startActivity(previewActivity);
             }
 
         });
+
+        //only for testing purposes
         changeStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 scanButton.changeStep();
             }
         });
+
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,21 +84,20 @@ public class ScanCameraActivity extends AppCompatActivity {
             }
         });
 
-        initBubbleHelp();
         scanButton.show();
         helpButton.show();
 
     }
 
     private void initBubbleHelp() {
-
+        //avoid spamming help button
         if(isHelpShowing) {
             return;
         }
 
         isHelpShowing = true;
 
-        helpMessage.animateIn();
+        helpMessage.animateIn(); //show the help message
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -107,14 +105,24 @@ public class ScanCameraActivity extends AppCompatActivity {
                 helpMessage.animateOut();
                 isHelpShowing = false;
             }
-        }, 5000);
+        }, 5000); //hide again after 5 seconds
+    }
+
+    private void showErrorMessage() {
+        errorMessage.animateIn(); //appear
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                errorMessage.animateOut();
+            }
+        }, 2000); //disappear after 2 seconds
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        Utils.hideSystemUI(getWindow());
+        Utils.hideSystemUI(getWindow()); //go full screen
     }
 
     @Override
@@ -123,11 +131,13 @@ public class ScanCameraActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.camera_top,menu);
 
         final MenuItem automaticMenuItem = menu.findItem(R.id.action_automatic);
-        final View actionView = automaticMenuItem.getActionView();
+        final View actionView = automaticMenuItem.getActionView(); //retrieve custom view for this menu item
+
+        //handle click here because it's a custom action layout https://developer.android.com/guide/topics/resources/menu-resource.html
         actionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView automaticText = actionView.findViewById(R.id.automatic_text);
+                TextView automaticText = actionView.findViewById(R.id.automatic_text); //retrieve the text view inside the custom view
                 if(captureMode == CAPTURE_AUTO) {
                     automaticText.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
                     captureMode = CAPTURE_MANUAL;

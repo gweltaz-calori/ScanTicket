@@ -38,9 +38,11 @@ public class PreviewMenuItem extends RelativeLayout {
         ImageButton menuButton = new ImageButton(getContext());
         menuButton.setImageResource(this.backgroundImage);
         menuButton.setBackgroundResource(R.drawable.ripple);
+
         LayoutParams menuButtonParams = new LayoutParams(80,80);
         menuButtonParams.addRule(CENTER_IN_PARENT,TRUE);
         menuButton.setLayoutParams(menuButtonParams);
+
         this.addView(menuButton);
 
 

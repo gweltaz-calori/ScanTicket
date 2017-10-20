@@ -13,7 +13,6 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AnticipateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 import com.example.gweltaz.scanticket.interfaces.OnStepChangedListener;
@@ -74,8 +73,7 @@ public class ScanButton extends View {
         arcAnimation.setDuration(currentStep.getSpeed());
         arcAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
-                Integer value = (Integer) animation.getAnimatedValue();
-                arcRotation = value;
+                arcRotation = (Integer) animation.getAnimatedValue();
                 invalidate();
             }
         });
@@ -180,6 +178,8 @@ public class ScanButton extends View {
 
     }
 
+
+    // appear animation
     public void show() {
         ObjectAnimator translateY = ObjectAnimator.ofFloat(this,"translationY",200,0);
         translateY.setInterpolator(new AnticipateInterpolator());
